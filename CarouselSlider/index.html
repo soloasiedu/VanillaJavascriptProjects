@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body onload="">
+
+    <div id="header">
+        <h1>A carousel Slider</h1>
+    </div>
+    <div id="carousel-container" >
+        <div class="next-container">
+          <button type="button" class="btn-next btn" onclick="next()">Next</button>
+        </div>
+        <div class="image-container" id="image-container" onmousemove="mouseOver()" onmouseout="mouseOut()">
+          <img src="yatch1.jpg" id="carousel-image" alt="carousel image" 
+        title="carousel-image">
+        </div>
+        
+        <div class="prev-container">
+          <button type="button" class="btn-prev btn" onclick="prev()">Prev</button>
+        </div>
+    </div>
+
+
+
+  <script src="script.js"></script>
+</body>
+</html>

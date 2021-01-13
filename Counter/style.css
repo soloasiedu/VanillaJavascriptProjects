@@ -1,0 +1,12 @@
+.container {
+    width: 40%;
+    border: 1px solid rosybrown;
+    margin: 50px auto;
+    background-color: deepskyblue;
+    text-align: center;
+}
+.container p{
+    font-weight: 800;
+    font-size: 30px;
+    color: white;
+}

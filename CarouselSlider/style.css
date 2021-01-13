@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+}
+#header{
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+    /* background-color: bisque; */
+}
+
+#header h1{
+    color: lightblue;
+}
+
+#carousel-container{
+    width: 80%;
+    /* min-width: 200px; */
+    margin: 50px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+#carousel-container .next-container{
+    width: 10%;
+    text-align: center;
+}
+#carousel-container .image-container{
+    width: 55%;
+    overflow: hidden;
+}
+#carousel-container .prev-container{
+    width: 10%;
+    text-align: center;
+}
+.carousel-image{
+    width: 100%;
+    /* object-fit: fill; */
+    /* height: 300px;
+    object-fit: cover; */
+}
+/* #carousel-container .btn-next{
+    width: 10%;
+    height: 50px;
+   
+} */
+#carousel-container .btn{
+    border: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: lightblue;
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+}
+/* #carousel-container .btn-prev{
+    width: 10%;
+    height: 50px;
+} */
+
+
+@media screen and (max-width: 600px){
+    #carousel-container{
+        flex-direction: column;
+        justify-content: space-between;
+        align-content: center;
+    }
+    #carousel-container .image-container{
+        width: 80%;     
+    }
+    #carousel-container .btn-next{
+        margin-bottom: 20px;
+    }
+    #carousel-container .btn-prev{
+        margin-top: 20px;
+    }
+    
+}
+
+/* .carousel-btns{
+    width: 60%;
+    margin: 20px auto;
+} */
