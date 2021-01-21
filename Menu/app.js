@@ -76,6 +76,7 @@ const menu = [
 
 const sectionCenter = document.querySelector('.section-center');
 const filterBtns = document.querySelectorAll('.filter-btn');
+const searchField = document.querySelector('.search');
 
 
 
@@ -84,25 +85,25 @@ window.addEventListener("DOMContentLoaded", function () {
   displayMenuItems(menu);
 });
 
-filterBtns.forEach(function(btn){
-  btn.addEventListener("click", function(e){
+filterBtns.forEach(function (btn) {
+  btn.addEventListener("click", function (e) {
     const category = e.currentTarget.dataset.id;
-    const menuCategory = menu.filter(function(menuItem){
-      if(menuItem.category === category){
+    const menuCategory = menu.filter(function (menuItem) {
+      if (menuItem.category === category) {
         return menuItem;
       }
     });
-    if(category === 'all'){
+    if (category === 'all') {
       displayMenuItems(menu);
-    }else{
+    } else {
       displayMenuItems(menuCategory);
     }
   })
 })
 
-function displayMenuItems(menuItems){
-   // console.log("shake and bake");
-   let displayMenu = menuItems.map(function (item) {
+function displayMenuItems(menuItems) {
+  // console.log("shake and bake");
+  let displayMenu = menuItems.map(function (item) {
     // console.log(item);
 
     return `<article class="menu-item">
@@ -122,19 +123,36 @@ function displayMenuItems(menuItems){
   sectionCenter.innerHTML = displayMenu;
 }
 
-function searchFunction(val) {
-  // alert("The input value has changed. The new value is: " + val);
-  console.log(val);
-  let searchedItems = menu.filter(function(menuItem){
-    if(menuItem.title.includes(val) === true){
+searchField.addEventListener("change", function (e) {
+  
+  let searchedItems = menu.filter(function (menuItem) {
+    if (menuItem.title.toUpperCase().includes(e.currentTarget.value.toUpperCase())) {
       return menuItem;
     }
   });
-  if(val === ""){
+  if (e.currentTarget.value === "") {
     displayMenuItems(menu);
-  }else {
+  } else {
     displayMenuItems(searchedItems);
   }
-  
-}
+});
+
+
+
+
+// function searchFunction(val) {
+//   // alert("The input value has changed. The new value is: " + val);
+//   console.log(val);
+//   let searchedItems = menu.filter(function(menuItem){
+//     if(menuItem.title.toUpperCase().includes(val.toUpperCase())){
+//       return menuItem;
+//     }
+//   });
+//   if(val === ""){
+//     displayMenuItems(menu);
+//   }else {
+//     displayMenuItems(searchedItems);
+//   }
+
+// }
 
