@@ -78,6 +78,8 @@ const sectionCenter = document.querySelector('.section-center');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
 
+
+
 window.addEventListener("DOMContentLoaded", function () {
   displayMenuItems(menu);
 });
@@ -119,3 +121,20 @@ function displayMenuItems(menuItems){
   // console.log(displayMenu);
   sectionCenter.innerHTML = displayMenu;
 }
+
+function searchFunction(val) {
+  // alert("The input value has changed. The new value is: " + val);
+  console.log(val);
+  let searchedItems = menu.filter(function(menuItem){
+    if(menuItem.title.includes(val) === true){
+      return menuItem;
+    }
+  });
+  if(val === ""){
+    displayMenuItems(menu);
+  }else {
+    displayMenuItems(searchedItems);
+  }
+  
+}
+
