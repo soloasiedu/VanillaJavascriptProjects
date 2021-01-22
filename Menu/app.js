@@ -83,31 +83,19 @@ const menu = [
 
 
 const sectionCenter = document.querySelector('.section-center');
-const filterBtns = document.querySelectorAll('.filter-btn');
 const searchField = document.querySelector('.search');
+const buttonSection = document.querySelector('.btn-container');
 
 
 
 
 window.addEventListener("DOMContentLoaded", function () {
   displayMenuItems(menu);
+  displayMenuButtons();
+  
 });
 
-filterBtns.forEach(function (btn) {
-  btn.addEventListener("click", function (e) {
-    const category = e.currentTarget.dataset.id;
-    const menuCategory = menu.filter(function (menuItem) {
-      if (menuItem.category === category) {
-        return menuItem;
-      }
-    });
-    if (category === 'all') {
-      displayMenuItems(menu);
-    } else {
-      displayMenuItems(menuCategory);
-    }
-  })
-})
+
 
 function displayMenuItems(menuItems) {
   // console.log("shake and bake");
@@ -130,6 +118,39 @@ function displayMenuItems(menuItems) {
   // console.log(displayMenu);
   sectionCenter.innerHTML = displayMenu;
 }
+
+function displayMenuButtons(){
+  const categories = menu.reduce(function(values, item){
+    if(!values.includes(item.category)){
+      values.push(item.category);
+    }  
+    return values
+  }, ['all']);
+  console.log(categories);
+  let displayButton = categories.map(function(item){
+      return `<button class="filter-btn" data-id=${item} type="button">${item}</button>`
+  })
+  displayButton = displayButton.join("");
+  buttonSection.innerHTML = displayButton;
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      const category = e.currentTarget.dataset.id;
+      const menuCategory = menu.filter(function (menuItem) {
+        if (menuItem.category === category) {
+          return menuItem;
+        }
+      });
+      if (category === 'all') {
+        displayMenuItems(menu);
+      } else {
+        displayMenuItems(menuCategory);
+      }
+    })
+  })
+}
+
+
 
 searchField.addEventListener("change", function (e) {
   

@@ -191,6 +191,11 @@ Menu
   display: flex;
   justify-content: center;
 }
+.search{
+  margin-left: 500px;
+  margin-bottom: 50px;
+  
+}
 .filter-btn {
   background: transparent;
   border-color: var(--clr-gold);
