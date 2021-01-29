@@ -16,30 +16,14 @@ let editID = "";
 form.addEventListener('submit', addItem);
 // clear items
 clearBtn.addEventListener('click', clearItems);
+window.addEventListener('DOMContentLoaded', setUpItems);
 // ****** FUNCTIONS **********
 function addItem(e){
     e.preventDefault();
     const value = grocery.value;
     const id = new Date().getTime().toString();
     if(value  && !editFlag){
-        const element = document.createElement('article');
-        // add class
-        element.classList.add('grocery-item');
-        // add id
-        const attr = document.createAttribute('data-id');
-        attr.value = id;
-        element.setAttributeNode(attr);
-        element.innerHTML = `<p class="title">${value}</p>
-        <div class="btn-container">
-          <button type ="button" class="edit-btn">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button type ="button" class="delete-btn">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>`;
-        // append child
-        list.appendChild(element);
+        createListItem(id, value);
         // display alert
         displayAlert('item added to the list', 'success');
         // show container
@@ -51,7 +35,13 @@ function addItem(e){
         
 
     }
-    else if(value && editFlag){}
+    else if(value && editFlag){
+        editElement.innerHTML = value;
+        displayAlert('value changed', 'success');
+        // edit local storage
+        editLocalStorage(editID, value);
+        setBackToDefault();
+    }
     else{
         displayAlert('Please enter value', 'danger');
     }
@@ -78,8 +68,34 @@ function clearItems(){
     container.classList.remove("show-container");
     displayAlert('empty list', 'danger');
     setBackToDefault();
-    //localStorage.removeItem('list);
+    localStorage.removeItem('list');
 }
+//delete function
+function deleteItem(e){
+    console.log("item deleted");
+    const element = e.currentTarget.parentElement.parentElement;
+    const id = element.dataset.id;
+    list.removeChild(element);
+    if(list.children.length === 0){
+        container.classList.remove('show-container');
+    }
+    displayAlert('item removed', 'danger');
+    setBackToDefault();
+    // remove from local storage
+    removeFromLocalStorage(id);
+}
+// edit function
+function editItem(e){
+    const element = e.currentTarget.parentElement.parentElement;
+    //set edit item
+    editElement = e.currentTarget.parentElement.previousElementSibling;
+    // set form value
+    grocery.value = editElement.innerHTML;
+    editFlag = true;
+    editID = element.dataset.id;
+    submitBtn.textContent = 'edit';
+}
+
 // set back to default
 function setBackToDefault(){
     grocery.value = '';
@@ -89,8 +105,81 @@ function setBackToDefault(){
 }
 // ****** LOCAL STORAGE **********
 function addToLocalStorage(id, value){
-    console.log('added to local storage');
+    // console.log('added to local storage');
+    const grocery = {id: id, value: value};
+    let items = getLocalStorage();
+    console.log(items);
+    items.push(grocery);
+    localStorage.setItem('list', JSON.stringify(items));
+    
 }
-
+function removeFromLocalStorage(id){
+    let items = getLocalStorage();
+    
+    items = items.filter(function(item){
+        if(item.id !== id){
+            return item;
+        }
+    });
+    localStorage.setItem('list', JSON.stringify(items));
+}
+function editLocalStorage(id, vlaue){
+    let items = getLocalStorage();
+    items = items.map(function(item){
+        if(item.id === id){
+            item.value = value;
+        }
+        return item;
+    })
+    localStorage.setItem('list', JSON.stringify(items));
+}
+function getLocalStorage(){
+    return localStorage.getItem('list')?JSON.parse(localStorage.getItem('list')):[];
+}
+// localStorage API
+    // setItem
+    // getItem
+    // removeItem
+    // save as strings
+ // localStorage.setItem('orange', JSON.stringify(['item1', 'item2']));
+    // let oranges = JSON.parse(localStorage.getItem('orange'));
+    // console.log(oranges);
+    // localStorage.removeItem('orange');
 
 // ****** SETUP ITEMS **********
+function setUpItems(){
+    let items = getLocalStorage();
+    if(items.length > 0){
+        items.forEach(function(item){
+            createListItem(item.id, item.value);
+        })
+    container.classList.add('show-container');
+    }
+}
+
+function createListItem(id, value){
+    const element = document.createElement('article');
+        // add class
+        element.classList.add('grocery-item');
+        // add id
+        const attr = document.createAttribute('data-id');
+        attr.value = id;
+        element.setAttributeNode(attr);
+        element.innerHTML = `<p class="title">${value}</p>
+        <div class="btn-container">
+          <button type ="button" class="edit-btn">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button type ="button" class="delete-btn">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>`;
+        const deleteBtn = element.querySelector('.delete-btn');
+        const editBtn = element.querySelector('.edit-btn');
+
+        deleteBtn.addEventListener('click', deleteItem);
+        editBtn.addEventListener('click', editItem);
+
+        // append child
+        list.appendChild(element);
+}
