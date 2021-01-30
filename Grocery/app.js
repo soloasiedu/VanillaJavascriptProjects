@@ -72,7 +72,6 @@ function clearItems(){
 }
 //delete function
 function deleteItem(e){
-    console.log("item deleted");
     const element = e.currentTarget.parentElement.parentElement;
     const id = element.dataset.id;
     list.removeChild(element);
