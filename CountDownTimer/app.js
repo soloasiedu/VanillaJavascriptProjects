@@ -72,5 +72,3 @@ function getRemainingTime(){
   }
 }
 let countDown = setInterval(getRemainingTime, 1000);
-
-// getRemainingTime();
