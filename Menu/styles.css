@@ -138,7 +138,7 @@ p {
 }
 /*  global classes */
 
-.btn {
+.btn,label {
   text-transform: uppercase;
   background: transparent;
   color: var(--clr-black);
@@ -152,10 +152,21 @@ p {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: var(--radius);
 }
-.btn:hover {
+.btn:hover,label:hover {
   color: var(--clr-white);
   background: var(--clr-black);
 }
+
+
+input[type='radio']{
+  display: none;
+}
+
+input[type='radio']:checked + label{
+  color: var(--clr-white);
+  background: var(--clr-gold);
+}
+
 /* section */
 .section {
   padding: 5rem 0;

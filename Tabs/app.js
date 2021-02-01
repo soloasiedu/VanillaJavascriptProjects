@@ -18,7 +18,7 @@ const about = document.querySelector('.about');
 // })
 
 about.addEventListener('click', function(e){
-    console.log(e.target.dataset.id);
+    // console.log(e.target.dataset.id);
     const id = e.target.dataset.id;
     if(id){
         tabBtns.forEach(function(btn){

@@ -152,7 +152,7 @@ function displayMenuButtons(){
 
 
 
-searchField.addEventListener("change", function (e) {
+searchField.addEventListener("input", function (e) {
   
   let searchedItems = menu.filter(function (menuItem) {
     if (menuItem.title.toUpperCase().includes(e.currentTarget.value.toUpperCase())) {
