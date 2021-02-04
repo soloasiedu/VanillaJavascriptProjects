@@ -4,6 +4,12 @@
 //offsetTop - A Number, representing the top position of the element, in pixels
 
 // ********** set date ************
+const dateSpan = document.querySelector('.date');
+const today = new Date();
+const year = today.getFullYear();
+console.log(year);
+
+dateSpan.textContent = year;
 
 // ********** close links ************
 
